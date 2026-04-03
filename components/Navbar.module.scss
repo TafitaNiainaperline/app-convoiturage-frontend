@@ -1,59 +1,100 @@
 .nav {
-  background: #1E6B3C;
-  padding: 0 24px;
-  height: 60px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0 28px;
+  height: 62px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 .logo {
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #1e6b3c;
   text-decoration: none;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+
+  svg {
+    color: #1e6b3c;
+  }
 }
 
 .liens {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 4px;
+}
 
-  a {
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 14px;
-    text-decoration: none;
-    transition: color 0.2s;
+.lien {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 7px 12px;
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
 
-    &:hover {
-      color: #fff;
-    }
+  &:hover {
+    color: #1e6b3c;
+    background: #f0faf4;
+  }
+
+  &.actif {
+    color: #1e6b3c;
+    background: #f0faf4;
+    font-weight: 600;
   }
 }
 
 .btnDeconnexion {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 6px 14px;
+  padding: 7px 12px;
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  margin-left: 8px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  font-family: inherit;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.25);
+    color: #e74c3c;
+    border-color: #fca5a5;
+    background: #fef2f2;
   }
 }
 
 .btnInscription {
-  background: #fff;
-  color: #1E6B3C !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #1e6b3c;
+  color: #fff !important;
   border-radius: 8px;
-  padding: 6px 14px;
-  font-weight: bold;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 6px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #175730;
+  }
 }
