@@ -1,0 +1,113 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.header {
+  background: #1E6B3C;
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.nom {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.email {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
+
+.role {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+}
+
+.section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  h2 {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 14px;
+  }
+}
+
+.infos {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ligne {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.ligneLabel {
+  font-size: 14px;
+  color: #888;
+}
+
+.ligneValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+}
+
+.btnDeconnexion {
+  width: 100%;
+  border: 1px solid #e74c3c;
+  color: #e74c3c;
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #fef2f2;
+  }
+}
+
+.chargement {
+  text-align: center;
+  color: #999;
+  margin-top: 60px;
+}
