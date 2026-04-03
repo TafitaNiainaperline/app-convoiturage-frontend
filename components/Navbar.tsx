@@ -17,6 +17,7 @@ export default function Navbar() {
   };
 
   const isActive = (path: string) => pathname === path;
+  const peutPublier = user?.role === 'conducteur' || user?.role === 'les_deux';
 
   return (
     <nav className={styles.nav}>
@@ -32,10 +33,12 @@ export default function Navbar() {
               <Car size={16} />
               Trajets
             </Link>
-            <Link href="/publier" className={`${styles.lien} ${isActive('/publier') ? styles.actif : ''}`}>
-              <Plus size={16} />
-              Publier
-            </Link>
+            {peutPublier && (
+              <Link href="/publier" className={`${styles.lien} ${isActive('/publier') ? styles.actif : ''}`}>
+                <Plus size={16} />
+                Publier
+              </Link>
+            )}
             <Link href="/reservations" className={`${styles.lien} ${isActive('/reservations') ? styles.actif : ''}`}>
               <BookOpen size={16} />
               Réservations
