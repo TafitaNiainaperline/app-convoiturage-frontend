@@ -1,0 +1,108 @@
+.titre {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1E6B3C;
+  margin-bottom: 20px;
+}
+
+.filtres {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+
+  select {
+    flex: 1;
+    min-width: 180px;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    background: #fff;
+    outline: none;
+    cursor: pointer;
+
+    &:focus {
+      border-color: #1E6B3C;
+    }
+  }
+}
+
+.btnRecherche {
+  background: #1E6B3C;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.carte {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: block;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.carteHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.villes {
+  font-size: 16px;
+  font-weight: bold;
+  color: #222;
+}
+
+.prix {
+  font-size: 16px;
+  font-weight: bold;
+  color: #1E6B3C;
+}
+
+.carteInfos {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.conducteur {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+.chargement,
+.vide {
+  text-align: center;
+  color: #999;
+  margin-top: 60px;
+  font-size: 16px;
+}
