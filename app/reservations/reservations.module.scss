@@ -1,0 +1,71 @@
+.titre {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1E6B3C;
+  margin-bottom: 24px;
+}
+
+.liste {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 700px;
+}
+
+.carte {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+.carteHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.villes {
+  font-size: 16px;
+  font-weight: bold;
+  color: #222;
+}
+
+.badge {
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+.info {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.btnAnnuler {
+  margin-top: 12px;
+  border: 1px solid #e74c3c;
+  color: #e74c3c;
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #fef2f2;
+  }
+}
+
+.vide {
+  text-align: center;
+  color: #999;
+  margin-top: 60px;
+  font-size: 16px;
+}
