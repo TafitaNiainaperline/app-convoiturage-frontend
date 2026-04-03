@@ -13,14 +13,13 @@ export default function ProfilPage() {
   const [profil, setProfil] = useState<User | null>(null);
   const [chargement, setChargement] = useState(true);
 
-  if (!user) { router.push('/login'); return null; }
-
   useEffect(() => {
+    if (!user) { router.push('/login'); return; }
     getProfil()
       .then(setProfil)
       .catch(() => setProfil(user))
       .finally(() => setChargement(false));
-  }, []);
+  }, [user]);
 
   const handleDeconnexion = () => {
     if (!confirm('Voulez-vous vous déconnecter ?')) return;

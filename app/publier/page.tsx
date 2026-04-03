@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { creerTrajet } from '@/lib/api';
 import { useAuth } from '@/lib/AuthContext';
@@ -18,7 +18,9 @@ export default function PublierPage() {
   const [chargement, setChargement] = useState(false);
   const [erreur, setErreur] = useState('');
 
-  if (!user) { router.push('/login'); return null; }
+  useEffect(() => {
+    if (!user) router.push('/login');
+  }, [user]);
 
   const update = (key: string, val: string) => setForm(f => ({ ...f, [key]: val }));
 

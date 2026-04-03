@@ -29,8 +29,6 @@ export default function ReservationsPage() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [chargement, setChargement] = useState(true);
 
-  if (!user) { router.push('/login'); return null; }
-
   const charger = async () => {
     try {
       const data = await mesReservations();
@@ -42,7 +40,10 @@ export default function ReservationsPage() {
     }
   };
 
-  useEffect(() => { charger(); }, []);
+  useEffect(() => {
+    if (!user) { router.push('/login'); return; }
+    charger();
+  }, [user]);
 
   const handleAnnuler = async (id: string) => {
     if (!confirm("Confirmer l'annulation ?")) return;
