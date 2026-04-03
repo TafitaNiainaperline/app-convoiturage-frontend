@@ -12,7 +12,7 @@ export default function RegisterPage() {
   const router = useRouter();
   const { inscrire } = useAuth();
   const [form, setForm] = useState({
-    nom: '', prenom: '', email: '', telephone: '', motDePasse: '', role: 'passager' as Role,
+    nom: '', email: '', telephone: '', motDePasse: '', role: 'passager' as Role,
   });
   const [erreur, setErreur] = useState('');
   const [chargement, setChargement] = useState(false);
@@ -41,15 +41,9 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit} className={styles.form}>
           {erreur && <p className={styles.erreur}>{erreur}</p>}
 
-          <div className={styles.rangee}>
-            <div className={styles.champ}>
-              <label>Nom</label>
-              <input value={form.nom} onChange={e => update('nom', e.target.value)} placeholder="Rakoto" required />
-            </div>
-            <div className={styles.champ}>
-              <label>Prénom</label>
-              <input value={form.prenom} onChange={e => update('prenom', e.target.value)} placeholder="Jean" required />
-            </div>
+          <div className={styles.champ}>
+            <label>Nom</label>
+            <input value={form.nom} onChange={e => update('nom', e.target.value)} placeholder="Rakoto" required />
           </div>
 
           <div className={styles.champ}>
