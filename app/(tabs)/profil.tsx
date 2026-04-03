@@ -3,11 +3,21 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert, ScrollView, ActivityIn
 import { useRouter } from 'expo-router';
 import { useAuth } from '../../src/context/AuthContext';
 import { getProfil } from '../../src/services/api';
+import { User } from '../../src/types';
+
+function InfoLigne({ label, value }: { label: string; value?: string }) {
+  return (
+    <View style={styles.ligne}>
+      <Text style={styles.ligneLabel}>{label}</Text>
+      <Text style={styles.ligneValue}>{value || '-'}</Text>
+    </View>
+  );
+}
 
 export default function Profil() {
   const router = useRouter();
   const { user, deconnecter } = useAuth();
-  const [profil, setProfil] = useState(null);
+  const [profil, setProfil] = useState<User | null>(null);
   const [chargement, setChargement] = useState(true);
 
   useEffect(() => {
@@ -20,13 +30,18 @@ export default function Profil() {
   const handleDeconnexion = () => {
     Alert.alert('Déconnexion', 'Voulez-vous vous déconnecter ?', [
       { text: 'Annuler' },
-      { text: 'Déconnecter', style: 'destructive', onPress: async () => { await deconnecter(); router.replace('/auth/login'); } }
+      {
+        text: 'Déconnecter', style: 'destructive', onPress: async () => {
+          await deconnecter();
+          router.replace('/auth/login');
+        }
+      }
     ]);
   };
 
   if (chargement) return <ActivityIndicator size="large" color="#1E6B3C" style={{ flex: 1, marginTop: 100 }} />;
 
-  const p = profil || user;
+  const p = profil ?? user;
 
   return (
     <ScrollView style={styles.container}>
@@ -65,15 +80,6 @@ export default function Profil() {
         </TouchableOpacity>
       </View>
     </ScrollView>
-  );
-}
-
-function InfoLigne({ label, value }) {
-  return (
-    <View style={styles.ligne}>
-      <Text style={styles.ligneLabel}>{label}</Text>
-      <Text style={styles.ligneValue}>{value || '-'}</Text>
-    </View>
   );
 }
 
