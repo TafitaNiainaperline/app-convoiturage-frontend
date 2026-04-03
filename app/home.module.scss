@@ -1,31 +1,71 @@
-.titre {
-  font-size: 24px;
-  font-weight: bold;
-  color: #1E6B3C;
-  margin-bottom: 20px;
+// Hero
+.hero {
+  background: linear-gradient(135deg, #1E6B3C 0%, #2d9e5a 100%);
+  margin: -24px -16px 0;
+  padding: 60px 24px 80px;
+  text-align: center;
+  color: #fff;
+
+  h1 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+
+  p {
+    font-size: 16px;
+    opacity: 0.85;
+    margin-bottom: 36px;
+  }
 }
 
-.filtres {
+.recherche {
+  background: #fff;
+  border-radius: 16px;
+  padding: 8px;
   display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  max-width: 700px;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.rechercheChamp {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #f5f5f5;
+  }
 
   select {
     flex: 1;
-    min-width: 180px;
-    padding: 10px 14px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    font-size: 14px;
-    background: #fff;
+    border: none;
     outline: none;
+    font-size: 15px;
+    color: #333;
+    background: transparent;
     cursor: pointer;
-
-    &:focus {
-      border-color: #1E6B3C;
-    }
+    font-family: inherit;
   }
+}
+
+.rechercheIcon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.separateur {
+  color: #ccc;
+  font-size: 18px;
+  padding: 0 4px;
 }
 
 .btnRecherche {
@@ -33,76 +73,222 @@
   color: #fff;
   border: none;
   border-radius: 10px;
-  padding: 10px 24px;
-  font-size: 14px;
+  padding: 12px 28px;
+  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
-  transition: opacity 0.2s;
+  white-space: nowrap;
+  transition: background 0.2s;
 
   &:hover {
-    opacity: 0.9;
+    background: #175730;
   }
 }
 
-.grille {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
+// Résultats
+.resultats {
+  max-width: 860px;
+  margin: -24px auto 0;
+  padding: 0 0 40px;
+}
+
+.resultatsHeader {
+  margin-bottom: 16px;
+
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+  }
+}
+
+// Liste trajets
+.liste {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .carte {
   background: #fff;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  border-radius: 14px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: block;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  }
-}
-
-.carteHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  gap: 20px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  border: 1px solid transparent;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    border-color: #e0f0e8;
+  }
 }
 
-.villes {
-  font-size: 16px;
-  font-weight: bold;
+.carteGauche {
+  flex: 1;
+}
+
+.trajetRoute {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.ville {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 17px;
+  font-weight: 700;
   color: #222;
 }
 
-.prix {
-  font-size: 16px;
-  font-weight: bold;
-  color: #1E6B3C;
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1E6B3C;
+  border: 2px solid #1E6B3C;
+  flex-shrink: 0;
 }
 
-.carteInfos {
+.dotArrivee {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #1E6B3C;
+  flex-shrink: 0;
+}
+
+.ligne {
+  flex: 1;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, #1E6B3C 0, #1E6B3C 4px, transparent 4px, transparent 8px);
+  min-width: 30px;
+}
+
+.carteMeta {
   display: flex;
   gap: 16px;
   font-size: 13px;
-  color: #666;
-  margin-bottom: 8px;
+  color: #777;
+}
+
+.carteDroite {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .conducteur {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.conducteurAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e0f0e8;
+  color: #1E6B3C;
+  font-weight: bold;
   font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.conducteurNom {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.conducteurNote {
+  font-size: 12px;
   color: #888;
   margin: 0;
 }
 
-.chargement,
+.prix {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  span {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1E6B3C;
+    line-height: 1;
+  }
+
+  small {
+    font-size: 12px;
+    color: #999;
+  }
+}
+
+// États
+.loader {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+.loaderSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e0f0e8;
+  border-top-color: #1E6B3C;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .vide {
   text-align: center;
-  color: #999;
-  margin-top: 60px;
-  font-size: 16px;
+  padding: 60px 0;
+
+  span {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: #999;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+}
+
+.btnPublier {
+  display: inline-block;
+  background: #1E6B3C;
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 15px;
+  text-decoration: none;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #175730;
+  }
 }
