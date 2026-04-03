@@ -16,7 +16,7 @@ export default function Login() {
     try {
       await connecter(email, motDePasse);
       router.replace('/(tabs)/home');
-    } catch (err) {
+    } catch (err: any) {
       Alert.alert('Erreur', err.response?.data?.message || 'Connexion échouée.');
     } finally {
       setChargement(false);
