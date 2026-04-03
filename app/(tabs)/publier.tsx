@@ -5,9 +5,19 @@ import { creerTrajet } from '../../src/services/api';
 
 const VILLES = ['Antananarivo', 'Tamatave', 'Fianarantsoa', 'Majunga', 'Diego-Suarez', 'Tuléar', 'Antsirabe', 'Ambositra'];
 
+interface PublierForm {
+  departVille: string;
+  arriveeVille: string;
+  dateDepart: string;
+  heureDepart: string;
+  placesDisponibles: string;
+  prixParPlace: string;
+  description: string;
+}
+
 export default function Publier() {
   const router = useRouter();
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<PublierForm>({
     departVille: '',
     arriveeVille: '',
     dateDepart: '',
@@ -18,7 +28,7 @@ export default function Publier() {
   });
   const [chargement, setChargement] = useState(false);
 
-  const update = (key, val) => setForm(f => ({ ...f, [key]: val }));
+  const update = (key: keyof PublierForm, val: string) => setForm(f => ({ ...f, [key]: val }));
 
   const handlePublier = async () => {
     const { departVille, arriveeVille, dateDepart, heureDepart, placesDisponibles, prixParPlace } = form;
@@ -37,7 +47,7 @@ export default function Publier() {
         description: form.description,
       });
       Alert.alert('Succès', 'Trajet publié !', [{ text: 'OK', onPress: () => router.push('/(tabs)/home') }]);
-    } catch (err) {
+    } catch (err: any) {
       Alert.alert('Erreur', err.response?.data?.message || 'Échec de la publication.');
     } finally {
       setChargement(false);
