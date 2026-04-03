@@ -1,4 +1,9 @@
 import { Tabs } from 'expo-router';
+import { Text } from 'react-native';
+
+function TabIcon({ name }: { name: string }) {
+  return <Text style={{ fontSize: 20 }}>{name}</Text>;
+}
 
 export default function TabsLayout() {
   return (
@@ -12,25 +17,20 @@ export default function TabsLayout() {
     >
       <Tabs.Screen
         name="home"
-        options={{ title: 'Trajets', tabBarIcon: ({ color }) => <TabIcon name="🚗" color={color} /> }}
+        options={{ title: 'Trajets', tabBarIcon: ({ color }) => <TabIcon name="🚗" /> }}
       />
       <Tabs.Screen
         name="publier"
-        options={{ title: 'Publier', tabBarIcon: ({ color }) => <TabIcon name="➕" color={color} /> }}
+        options={{ title: 'Publier', tabBarIcon: ({ color }) => <TabIcon name="➕" /> }}
       />
       <Tabs.Screen
         name="reservations"
-        options={{ title: 'Mes trajets', tabBarIcon: ({ color }) => <TabIcon name="📋" color={color} /> }}
+        options={{ title: 'Mes trajets', tabBarIcon: ({ color }) => <TabIcon name="📋" /> }}
       />
       <Tabs.Screen
         name="profil"
-        options={{ title: 'Profil', tabBarIcon: ({ color }) => <TabIcon name="👤" color={color} /> }}
+        options={{ title: 'Profil', tabBarIcon: ({ color }) => <TabIcon name="👤" /> }}
       />
     </Tabs>
   );
-}
-
-function TabIcon({ name }) {
-  const { Text } = require('react-native');
-  return <Text style={{ fontSize: 20 }}>{name}</Text>;
 }
