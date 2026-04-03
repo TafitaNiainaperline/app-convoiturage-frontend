@@ -2,14 +2,28 @@ import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '../../src/context/AuthContext';
+import { User } from '../../src/types';
+
+type Role = 'passager' | 'conducteur' | 'les_deux';
+
+interface RegisterForm {
+  nom: string;
+  prenom: string;
+  email: string;
+  telephone: string;
+  motDePasse: string;
+  role: Role;
+}
 
 export default function Register() {
   const router = useRouter();
   const { inscrire } = useAuth();
-  const [form, setForm] = useState({ nom: '', prenom: '', email: '', telephone: '', motDePasse: '', role: 'passager' });
+  const [form, setForm] = useState<RegisterForm>({
+    nom: '', prenom: '', email: '', telephone: '', motDePasse: '', role: 'passager',
+  });
   const [chargement, setChargement] = useState(false);
 
-  const update = (key, val) => setForm(f => ({ ...f, [key]: val }));
+  const update = (key: keyof RegisterForm, val: string) => setForm(f => ({ ...f, [key]: val }));
 
   const handleRegister = async () => {
     const { nom, prenom, email, telephone, motDePasse } = form;
@@ -20,7 +34,7 @@ export default function Register() {
     try {
       await inscrire(form);
       router.replace('/(tabs)/home');
-    } catch (err) {
+    } catch (err: any) {
       Alert.alert('Erreur', err.response?.data?.message || 'Inscription échouée.');
     } finally {
       setChargement(false);
@@ -39,7 +53,7 @@ export default function Register() {
 
       <Text style={styles.label}>Je suis :</Text>
       <View style={styles.roles}>
-        {['passager', 'conducteur', 'les_deux'].map(r => (
+        {(['passager', 'conducteur', 'les_deux'] as Role[]).map(r => (
           <TouchableOpacity
             key={r}
             style={[styles.roleBtn, form.role === r && styles.roleBtnActif]}
