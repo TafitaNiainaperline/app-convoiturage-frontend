@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, RefreshControl } from 'react-native';
-import { useRouter } from 'expo-router';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, RefreshControl, ListRenderItem } from 'react-native';
 import { mesReservations, annulerReservation } from '../../src/services/api';
+import { Reservation, StatutReservation } from '../../src/types';
 
-const STATUT_COULEUR = {
+const STATUT_COULEUR: Record<StatutReservation, string> = {
   en_attente: '#FFA500',
   confirme: '#1E6B3C',
   refuse: '#e74c3c',
@@ -11,7 +11,7 @@ const STATUT_COULEUR = {
   termine: '#666',
 };
 
-const STATUT_LABEL = {
+const STATUT_LABEL: Record<StatutReservation, string> = {
   en_attente: 'En attente',
   confirme: 'Confirmé',
   refuse: 'Refusé',
@@ -20,8 +20,7 @@ const STATUT_LABEL = {
 };
 
 export default function Reservations() {
-  const router = useRouter();
-  const [reservations, setReservations] = useState([]);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
   const [chargement, setChargement] = useState(true);
   const [rafraichi, setRafraichi] = useState(false);
 
@@ -39,8 +38,8 @@ export default function Reservations() {
 
   useEffect(() => { charger(); }, []);
 
-  const handleAnnuler = (id) => {
-    Alert.alert('Annuler', 'Confirmer l\'annulation de la réservation ?', [
+  const handleAnnuler = (id: string) => {
+    Alert.alert('Annuler', "Confirmer l'annulation de la réservation ?", [
       { text: 'Non' },
       {
         text: 'Oui', style: 'destructive', onPress: async () => {
@@ -51,7 +50,7 @@ export default function Reservations() {
     ]);
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem: ListRenderItem<Reservation> = ({ item }) => (
     <View style={styles.carte}>
       <View style={styles.carteHeader}>
         <Text style={styles.villes}>
