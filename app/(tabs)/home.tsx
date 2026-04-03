@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
-import { View, Text, FlatList, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, RefreshControl } from 'react-native';
+import { View, Text, FlatList, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, RefreshControl, ListRenderItem } from 'react-native';
 import { useRouter } from 'expo-router';
 import { getTrajets } from '../../src/services/api';
+import { Trajet } from '../../src/types';
 
-const VILLES = ['Antananarivo', 'Tamatave', 'Fianarantsoa', 'Majunga', 'Diego', 'Tuléar', 'Antsirabe'];
+interface Filtres {
+  depart: string;
+  arrivee: string;
+}
 
 export default function Home() {
   const router = useRouter();
-  const [trajets, setTrajets] = useState([]);
+  const [trajets, setTrajets] = useState<Trajet[]>([]);
   const [chargement, setChargement] = useState(true);
   const [rafraichi, setRafraichi] = useState(false);
-  const [filtres, setFiltres] = useState({ depart: '', arrivee: '' });
+  const [filtres, setFiltres] = useState<Filtres>({ depart: '', arrivee: '' });
 
   const chargerTrajets = async () => {
     try {
@@ -28,7 +32,7 @@ export default function Home() {
 
   const onRefresh = () => { setRafraichi(true); chargerTrajets(); };
 
-  const renderTrajet = ({ item }) => (
+  const renderTrajet: ListRenderItem<Trajet> = ({ item }) => (
     <TouchableOpacity style={styles.carte} onPress={() => router.push(`/trajet/${item._id}`)}>
       <View style={styles.carteHeader}>
         <Text style={styles.villes}>{item.depart.ville} → {item.arrivee.ville}</Text>
@@ -40,7 +44,7 @@ export default function Home() {
       </View>
       {item.conducteur && (
         <Text style={styles.conducteur}>
-          🧑 {item.conducteur.prenom} {item.conducteur.nom} · ⭐ {item.conducteur.note?.toFixed(1) || 'N/A'}
+          🧑 {item.conducteur.prenom} {item.conducteur.nom} · ⭐ {item.conducteur.note?.toFixed(1) ?? 'N/A'}
         </Text>
       )}
     </TouchableOpacity>
@@ -50,7 +54,6 @@ export default function Home() {
     <View style={styles.container}>
       <Text style={styles.titre}>Trouver un trajet</Text>
 
-      {/* Filtres rapides */}
       <View style={styles.filtres}>
         <TextInput
           style={styles.filtreInput}
