@@ -1,16 +1,25 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { login as apiLogin, register as apiRegister } from '../services/api';
+import { User } from '../types';
 
-const AuthContext = createContext();
+interface AuthContextType {
+  user: User | null;
+  token: string | null;
+  chargement: boolean;
+  connecter: (email: string, motDePasse: string) => Promise<void>;
+  inscrire: (donnees: Partial<User> & { motDePasse: string }) => Promise<void>;
+  deconnecter: () => Promise<void>;
+}
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const [chargement, setChargement] = useState(true);
 
   useEffect(() => {
-    // Charger le token sauvegardé au démarrage
     (async () => {
       const t = await AsyncStorage.getItem('token');
       const u = await AsyncStorage.getItem('user');
@@ -22,7 +31,7 @@ export function AuthProvider({ children }) {
     })();
   }, []);
 
-  const connecter = async (email, motDePasse) => {
+  const connecter = async (email: string, motDePasse: string) => {
     const res = await apiLogin({ email, motDePasse });
     await AsyncStorage.setItem('token', res.data.token);
     await AsyncStorage.setItem('user', JSON.stringify(res.data.user));
@@ -30,7 +39,7 @@ export function AuthProvider({ children }) {
     setUser(res.data.user);
   };
 
-  const inscrire = async (donnees) => {
+  const inscrire = async (donnees: Partial<User> & { motDePasse: string }) => {
     const res = await apiRegister(donnees);
     await AsyncStorage.setItem('token', res.data.token);
     await AsyncStorage.setItem('user', JSON.stringify(res.data.user));
@@ -52,4 +61,8 @@ export function AuthProvider({ children }) {
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+  if (!context) throw new Error('useAuth must be used within AuthProvider');
+  return context;
+};
