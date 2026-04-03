@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { MapPin, Flag, Search, Calendar, Clock, Users, Star, ArrowRight, Car } from 'lucide-react';
 import { getTrajets } from '@/lib/api';
 import { Trajet } from '@/lib/types';
 import styles from './home.module.scss';
@@ -28,95 +29,115 @@ export default function HomePage() {
   useEffect(() => { charger(); }, []);
 
   return (
-    <div>
+    <div className={styles.page}>
       {/* Hero */}
-      <div className={styles.hero}>
-        <h1>Voyagez ensemble à Madagascar</h1>
-        <p>Trouvez un trajet partagé vers votre destination</p>
+      <section className={styles.hero}>
+        <div className={styles.heroContent}>
+          <h1>Voyagez ensemble<br />à Madagascar</h1>
+          <p>Trouvez un trajet partagé, économique et convivial</p>
 
-        <div className={styles.recherche}>
-          <div className={styles.rechercheChamp}>
-            <span className={styles.rechercheIcon}>📍</span>
-            <select value={filtres.depart} onChange={e => setFiltres(f => ({ ...f, depart: e.target.value }))}>
-              <option value="">Ville de départ</option>
-              {VILLES.map(v => <option key={v} value={v}>{v}</option>)}
-            </select>
+          <div className={styles.searchBox}>
+            <div className={styles.searchField}>
+              <MapPin size={18} className={styles.searchFieldIcon} />
+              <select
+                value={filtres.depart}
+                onChange={e => setFiltres(f => ({ ...f, depart: e.target.value }))}
+              >
+                <option value="">Ville de départ</option>
+                {VILLES.map(v => <option key={v} value={v}>{v}</option>)}
+              </select>
+            </div>
+
+            <div className={styles.searchDivider}>
+              <ArrowRight size={16} />
+            </div>
+
+            <div className={styles.searchField}>
+              <Flag size={18} className={styles.searchFieldIcon} />
+              <select
+                value={filtres.arrivee}
+                onChange={e => setFiltres(f => ({ ...f, arrivee: e.target.value }))}
+              >
+                <option value="">Ville d'arrivée</option>
+                {VILLES.map(v => <option key={v} value={v}>{v}</option>)}
+              </select>
+            </div>
+
+            <button onClick={charger} className={styles.searchBtn}>
+              <Search size={18} />
+              Rechercher
+            </button>
           </div>
-          <div className={styles.separateur}>→</div>
-          <div className={styles.rechercheChamp}>
-            <span className={styles.rechercheIcon}>🏁</span>
-            <select value={filtres.arrivee} onChange={e => setFiltres(f => ({ ...f, arrivee: e.target.value }))}>
-              <option value="">Ville d'arrivée</option>
-              {VILLES.map(v => <option key={v} value={v}>{v}</option>)}
-            </select>
-          </div>
-          <button onClick={charger} className={styles.btnRecherche}>
-            Rechercher
-          </button>
         </div>
-      </div>
+      </section>
 
       {/* Résultats */}
-      <div className={styles.resultats}>
-        <div className={styles.resultatsHeader}>
-          <h2>{chargement ? 'Chargement...' : `${trajets.length} trajet(s) disponible(s)`}</h2>
+      <section className={styles.results}>
+        <div className={styles.resultsHeader}>
+          <h2>
+            {chargement ? 'Chargement...' : `${trajets.length} trajet${trajets.length > 1 ? 's' : ''} disponible${trajets.length > 1 ? 's' : ''}`}
+          </h2>
         </div>
 
         {chargement ? (
           <div className={styles.loader}>
-            <div className={styles.loaderSpinner} />
+            <div className={styles.spinner} />
           </div>
         ) : trajets.length === 0 ? (
-          <div className={styles.vide}>
-            <span>🚗</span>
+          <div className={styles.empty}>
+            <Car size={48} strokeWidth={1.5} />
             <p>Aucun trajet disponible pour le moment.</p>
-            <Link href="/publier" className={styles.btnPublier}>Publier un trajet</Link>
+            <Link href="/publier" className={styles.emptyBtn}>Publier un trajet</Link>
           </div>
         ) : (
-          <div className={styles.liste}>
+          <div className={styles.list}>
             {trajets.map(trajet => (
-              <Link href={`/trajet/${trajet._id}`} key={trajet._id} className={styles.carte}>
-                <div className={styles.carteGauche}>
-                  <div className={styles.trajetRoute}>
-                    <div className={styles.ville}>
-                      <span className={styles.dot} />
-                      <span>{trajet.depart.ville}</span>
+              <Link href={`/trajet/${trajet._id}`} key={trajet._id} className={styles.card}>
+                <div className={styles.cardLeft}>
+                  <div className={styles.route}>
+                    <div className={styles.routePoint}>
+                      <span className={styles.routeDot} />
+                      <span className={styles.routeCity}>{trajet.depart.ville}</span>
                     </div>
-                    <div className={styles.ligne} />
-                    <div className={styles.ville}>
-                      <span className={styles.dotArrivee} />
-                      <span>{trajet.arrivee.ville}</span>
+                    <div className={styles.routeLine} />
+                    <div className={styles.routePoint}>
+                      <span className={styles.routeDotEnd} />
+                      <span className={styles.routeCity}>{trajet.arrivee.ville}</span>
                     </div>
                   </div>
-                  <div className={styles.carteMeta}>
-                    <span>📅 {new Date(trajet.dateDepart).toLocaleDateString('fr-FR')}</span>
-                    <span>🕐 {trajet.heureDepart}</span>
-                    <span>💺 {trajet.placesDisponibles - trajet.placesReservees} place(s)</span>
+
+                  <div className={styles.meta}>
+                    <span><Calendar size={14} />{new Date(trajet.dateDepart).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
+                    <span><Clock size={14} />{trajet.heureDepart}</span>
+                    <span><Users size={14} />{trajet.placesDisponibles - trajet.placesReservees} place{trajet.placesDisponibles - trajet.placesReservees > 1 ? 's' : ''}</span>
                   </div>
                 </div>
 
-                <div className={styles.carteDroite}>
+                <div className={styles.cardRight}>
                   {trajet.conducteur && (
-                    <div className={styles.conducteur}>
-                      <div className={styles.conducteurAvatar}>
+                    <div className={styles.driver}>
+                      <div className={styles.driverAvatar}>
                         {trajet.conducteur.prenom[0]}{trajet.conducteur.nom[0]}
                       </div>
-                      <div>
-                        <p className={styles.conducteurNom}>{trajet.conducteur.prenom} {trajet.conducteur.nom}</p>
-                        <p className={styles.conducteurNote}>⭐ {trajet.conducteur.note?.toFixed(1) ?? 'N/A'}</p>
+                      <div className={styles.driverInfo}>
+                        <span className={styles.driverName}>{trajet.conducteur.prenom} {trajet.conducteur.nom}</span>
+                        <span className={styles.driverRating}>
+                          <Star size={12} fill="#f59e0b" stroke="#f59e0b" />
+                          {trajet.conducteur.note?.toFixed(1) ?? 'N/A'}
+                        </span>
                       </div>
                     </div>
                   )}
-                  <div className={styles.prix}>
-                    <span>{trajet.prixParPlace.toLocaleString()}</span>
-                    <small>Ar / place</small>
+                  <div className={styles.price}>
+                    <span className={styles.priceAmount}>{trajet.prixParPlace.toLocaleString()}</span>
+                    <span className={styles.priceCurrency}>Ar</span>
                   </div>
                 </div>
               </Link>
             ))}
           </div>
         )}
-      </div>
+      </section>
     </div>
   );
 }
