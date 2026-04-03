@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Covoiturage Mada",
+    "slug": "covoiturage-mada",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1E6B3C"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "mg.covoiturage.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Pour afficher les trajets près de vous."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1E6B3C"
+      },
+      "package": "mg.covoiturage.app",
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
+    },
+    "plugins": [
+      "expo-router",
+      "expo-location",
+      [
+        "expo-image-picker",
+        { "photosPermission": "Pour choisir votre photo de profil." }
+      ]
+    ],
+    "scheme": "covoiturage-mada"
+  }
+}
