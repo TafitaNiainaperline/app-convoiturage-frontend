@@ -1,0 +1,193 @@
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.retour {
+  background: none;
+  border: none;
+  color: #1E6B3C;
+  font-size: 15px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #222;
+  }
+}
+
+.prix {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1E6B3C;
+}
+
+.section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  h2 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 14px;
+  }
+}
+
+.infos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  span {
+    font-size: 13px;
+    color: #888;
+  }
+
+  strong {
+    font-size: 15px;
+    color: #222;
+  }
+}
+
+.description {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+}
+
+.conducteurNom {
+  font-size: 16px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.conducteurInfo {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.nbPlaces {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 16px;
+
+  span {
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 80px;
+    text-align: center;
+  }
+}
+
+.btnQte {
+  background: #1E6B3C;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paiements {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.paiementBtn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 13px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &.actif {
+    background: #1E6B3C;
+    border-color: #1E6B3C;
+    color: #fff;
+    font-weight: bold;
+  }
+}
+
+.total {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1E6B3C;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.btnReserver {
+  width: 100%;
+  background: #1E6B3C;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+}
+
+.messageInfo {
+  background: #f0faf4;
+  color: #1E6B3C;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.chargement {
+  text-align: center;
+  color: #999;
+  margin-top: 60px;
+}
