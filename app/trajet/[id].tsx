@@ -3,14 +3,29 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert, ActivityIn
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { getTrajet, reserverTrajet } from '../../src/services/api';
 import { useAuth } from '../../src/context/AuthContext';
+import { Trajet, ModePaiement } from '../../src/types';
+
+interface ReservationForm {
+  nbPlaces: number;
+  modePaiement: ModePaiement;
+}
+
+function InfoRow({ label, value }: { label: string; value: string }) {
+  return (
+    <View style={styles.infoRow}>
+      <Text style={styles.infoLabel}>{label}</Text>
+      <Text style={styles.infoValue}>{value}</Text>
+    </View>
+  );
+}
 
 export default function DetailTrajet() {
-  const { id } = useLocalSearchParams();
+  const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { user } = useAuth();
-  const [trajet, setTrajet] = useState(null);
+  const [trajet, setTrajet] = useState<Trajet | null>(null);
   const [chargement, setChargement] = useState(true);
-  const [reservation, setReservation] = useState({ nbPlaces: 1, modePaiement: 'especes' });
+  const [reservation, setReservation] = useState<ReservationForm>({ nbPlaces: 1, modePaiement: 'especes' });
   const [reservant, setReservant] = useState(false);
 
   useEffect(() => {
@@ -27,7 +42,7 @@ export default function DetailTrajet() {
       Alert.alert('Succès', 'Réservation envoyée ! Attendez la confirmation du conducteur.', [
         { text: 'OK', onPress: () => router.push('/(tabs)/reservations') }
       ]);
-    } catch (err) {
+    } catch (err: any) {
       Alert.alert('Erreur', err.response?.data?.message || 'Réservation échouée.');
     } finally {
       setReservant(false);
@@ -64,7 +79,7 @@ export default function DetailTrajet() {
         <View style={styles.section}>
           <Text style={styles.sectionTitre}>Conducteur</Text>
           <Text style={styles.conducteurNom}>{trajet.conducteur.prenom} {trajet.conducteur.nom}</Text>
-          <Text style={styles.conducteurInfo}>⭐ {trajet.conducteur.note?.toFixed(1) || 'N/A'} · 📞 {trajet.conducteur.telephone}</Text>
+          <Text style={styles.conducteurInfo}>⭐ {trajet.conducteur.note?.toFixed(1) ?? 'N/A'} · 📞 {trajet.conducteur.telephone}</Text>
           {trajet.conducteur.vehicule?.marque && (
             <Text style={styles.conducteurInfo}>
               🚗 {trajet.conducteur.vehicule.marque} {trajet.conducteur.vehicule.modele} · {trajet.conducteur.vehicule.couleur}
@@ -89,7 +104,7 @@ export default function DetailTrajet() {
 
           <Text style={styles.label}>Mode de paiement :</Text>
           <View style={styles.paiements}>
-            {['especes', 'mvola', 'orange_money'].map(p => (
+            {(['especes', 'mvola', 'orange_money'] as ModePaiement[]).map(p => (
               <TouchableOpacity
                 key={p}
                 style={[styles.paiementBtn, reservation.modePaiement === p && styles.paiementBtnActif]}
@@ -110,15 +125,6 @@ export default function DetailTrajet() {
         </View>
       )}
     </ScrollView>
-  );
-}
-
-function InfoRow({ label, value }) {
-  return (
-    <View style={styles.infoRow}>
-      <Text style={styles.infoLabel}>{label}</Text>
-      <Text style={styles.infoValue}>{value}</Text>
-    </View>
   );
 }
 
