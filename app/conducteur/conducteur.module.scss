@@ -1,0 +1,343 @@
+.container {
+  max-width: 720px;
+}
+
+/* ── Entête ── */
+.entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.titre {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 2px;
+}
+
+.sousTitre {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.btnPublier {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #1E6B3C;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+
+  &:hover { opacity: 0.87; }
+}
+
+/* ── État vide ── */
+.vide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 80px 0;
+  color: #9ca3af;
+
+  p { font-size: 15px; }
+}
+
+/* ── Spinner ── */
+.spinner {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.spinnerInner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #1E6B3C;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Liste ── */
+.liste {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Carte trajet ── */
+.carte {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  border: 1px solid #f0f0f0;
+}
+
+.carteTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.route {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ville {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+}
+
+.fleche {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.badge {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+/* ── Méta ── */
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin-bottom: 12px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #6b7280;
+
+  svg { flex-shrink: 0; color: #9ca3af; }
+}
+
+/* ── Barre de progression ── */
+.progressBar {
+  height: 4px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #1E6B3C;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+  min-width: 4px;
+}
+
+/* ── Actions ── */
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btnRez {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #374151;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+  }
+}
+
+.pill {
+  background: #1E6B3C;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 1px 7px;
+  margin-left: 2px;
+}
+
+.btnAnnuler {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #fecaca;
+  background: #fff;
+  color: #ef4444;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    background: #fef2f2;
+    border-color: #ef4444;
+  }
+}
+
+/* ── Section réservations ── */
+.rezSection {
+  margin-top: 14px;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rezVide {
+  font-size: 13px;
+  color: #9ca3af;
+  text-align: center;
+  padding: 10px 0;
+}
+
+/* ── Carte réservation ── */
+.rezCarte {
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.rezTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.rezAvatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #d1fae5;
+  color: #1E6B3C;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.rezInfos {
+  flex: 1;
+  min-width: 0;
+}
+
+.rezNom {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.rezMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #6b7280;
+
+    svg { color: #9ca3af; flex-shrink: 0; }
+  }
+}
+
+.badgeSm {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Boutons confirmer/refuser ── */
+.rezBtns {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.btnConfirmer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #1E6B3C;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+
+  &:hover { opacity: 0.87; }
+}
+
+.btnRefuser {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  color: #ef4444;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    background: #fef2f2;
+    border-color: #ef4444;
+  }
+}
