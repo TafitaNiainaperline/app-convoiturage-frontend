@@ -55,6 +55,16 @@ export interface Reservation {
   createdAt?: string;
 }
 
+export interface Notification {
+  _id: string;
+  type: 'reservation_confirmee' | 'reservation_refusee' | 'reservation_annulee' | 'nouvelle_reservation';
+  message: string;
+  lu: boolean;
+  trajetId?: string;
+  reservationId?: string;
+  createdAt: string;
+}
+
 export interface AuthResponse {
   token: string;
   user: User;
