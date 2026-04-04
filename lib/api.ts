@@ -1,12 +1,14 @@
-import { AuthResponse, Trajet, Reservation, User, ModePaiement, StatutReservation } from './types';
+import { AuthResponse, Trajet, Reservation, User, ModePaiement, StatutReservation, Notification } from './types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
   const res = await fetch(`${API_URL}${path}`, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...options.headers,
     },
     credentials: 'include',
@@ -40,6 +42,7 @@ export const modifierTrajet = (id: string, data: Partial<Trajet>) =>
 export const annulerTrajet = (id: string) =>
   request(`/trips/${id}`, { method: 'DELETE' });
 export const mesTrajets = () => request<Trajet[]>('/trips/conducteur/mes-trajets');
+export const reservationsTrajet = (tripId: string) => request<Reservation[]>(`/bookings/trajet/${tripId}`);
 
 // Réservations
 export const reserverTrajet = (data: { trajetId: string; nbPlaces: number; modePaiement: ModePaiement }) =>
@@ -49,6 +52,11 @@ export const changerStatutReservation = (id: string, statut: StatutReservation) 
   request<Reservation>(`/bookings/${id}/statut`, { method: 'PUT', body: JSON.stringify({ statut }) });
 export const annulerReservation = (id: string) =>
   request(`/bookings/${id}`, { method: 'DELETE' });
+
+// Notifications
+export const getNotifications = () => request<Notification[]>('/notifications');
+export const marquerNotifLue = (id: string) => request(`/notifications/${id}/lu`, { method: 'PUT' });
+export const toutMarquerLu = () => request('/notifications/tout-lire', { method: 'PUT' });
 
 // Utilisateurs
 export const getProfil = () => request<User>('/users/profil');
