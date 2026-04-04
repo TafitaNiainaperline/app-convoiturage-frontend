@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Car, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/lib/AuthContext';
 import styles from './register.module.scss';
 
-type Role = 'passager' | 'conducteur' | 'les_deux';
+type Role = 'passager' | 'conducteur';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -36,26 +36,74 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.carte}>
-        <h1 className={styles.titre}>Créer un compte</h1>
+    <div className={styles.page}>
+      {/* Côté gauche */}
+      <div className={styles.hero}>
+        <div className={styles.heroLogo}>
+          <Car size={24} />
+          Covoiturage Mada
+        </div>
+        <h1 className={styles.heroTitre}>
+          Voyagez ensemble<br />à Madagascar
+        </h1>
+        <p className={styles.heroSousTitre}>
+          Trouvez ou proposez un trajet partagé, économique et convivial entre les grandes villes.
+        </p>
+        <div className={styles.heroStats}>
+          <div className={styles.heroStat}>
+            <span className={styles.heroStatNb}>8+</span>
+            <span className={styles.heroStatLabel}>Villes desservies</span>
+          </div>
+          <div className={styles.heroStat}>
+            <span className={styles.heroStatNb}>100%</span>
+            <span className={styles.heroStatLabel}>Gratuit à utiliser</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Côté droit */}
+      <div className={styles.formSide}>
+        <div className={styles.formCard}>
+        <h2 className={styles.formTitre}>Créer un compte</h2>
+        <p className={styles.formSousTitre}>Inscription gratuite en quelques secondes</p>
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          {erreur && <p className={styles.erreur}>{erreur}</p>}
+          {erreur && (
+            <div className={styles.erreur}>
+              <AlertCircle size={16} /> {erreur}
+            </div>
+          )}
 
           <div className={styles.champ}>
-            <label>Nom</label>
-            <input value={form.nom} onChange={e => update('nom', e.target.value)} placeholder="Rakoto" required />
+            <label>Nom complet</label>
+            <input
+              value={form.nom}
+              onChange={e => update('nom', e.target.value)}
+              placeholder="Rakoto Jean"
+              required
+            />
           </div>
 
           <div className={styles.champ}>
-            <label>Email</label>
-            <input type="email" value={form.email} onChange={e => update('email', e.target.value)} placeholder="votre@email.com" required />
+            <label>Adresse email</label>
+            <input
+              type="email"
+              value={form.email}
+              onChange={e => update('email', e.target.value)}
+              placeholder="votre@email.com"
+              required
+            />
           </div>
 
           <div className={styles.champ}>
             <label>Téléphone</label>
-            <input type="tel" value={form.telephone} onChange={e => update('telephone', e.target.value)} placeholder="034 XX XXX XX" required />
+            <input
+              type="tel"
+              value={form.telephone}
+              onChange={e => update('telephone', e.target.value)}
+              placeholder="034 XX XXX XX"
+              required
+            />
           </div>
 
           <div className={styles.champ}>
@@ -77,7 +125,7 @@ export default function RegisterPage() {
           <div className={styles.champ}>
             <label>Je suis</label>
             <div className={styles.roles}>
-              {([['passager', 'Passager'], ['conducteur', 'Conducteur'], ['les_deux', 'Les deux']] as [Role, string][]).map(([val, label]) => (
+              {([['passager', 'Passager'], ['conducteur', 'Conducteur']] as [Role, string][]).map(([val, label]) => (
                 <button
                   key={val}
                   type="button"
@@ -91,7 +139,7 @@ export default function RegisterPage() {
           </div>
 
           <button type="submit" className={styles.bouton} disabled={chargement}>
-            {chargement ? 'Inscription...' : "S'inscrire"}
+            {chargement ? 'Création du compte...' : 'Créer mon compte'}
           </button>
         </form>
 
@@ -99,6 +147,7 @@ export default function RegisterPage() {
           Déjà un compte ?{' '}
           <Link href="/login">Se connecter</Link>
         </p>
+        </div>
       </div>
     </div>
   );
