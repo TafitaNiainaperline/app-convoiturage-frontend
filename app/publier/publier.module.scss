@@ -116,35 +116,58 @@
 }
 
 /* ── Sélecteur places ── */
-.placesRow {
+.placesCounter {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 0;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  width: fit-content;
 }
 
-.placeBtn {
+.placesBtn {
   width: 48px;
   height: 48px;
-  border-radius: 10px;
-  border: 1.5px solid #e5e7eb;
-  background: #fff;
-  font-size: 16px;
-  font-weight: 600;
+  border: none;
+  background: #f9fafb;
+  font-size: 22px;
+  font-weight: 400;
   color: #374151;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: background 0.15s, color 0.15s;
   font-family: inherit;
+  flex-shrink: 0;
 
-  &:hover:not(.actif) {
-    border-color: #1E6B3C;
-    color: #1E6B3C;
+  &:hover:not(:disabled) {
     background: #f0fdf4;
+    color: #1E6B3C;
   }
 
-  &.actif {
-    background: #1E6B3C;
-    border-color: #1E6B3C;
-    color: #fff;
+  &:disabled {
+    color: #d1d5db;
+    cursor: not-allowed;
   }
+}
+
+.placesInput {
+  width: 64px;
+  height: 48px;
+  border: none !important;
+  border-left: 1.5px solid #e5e7eb !important;
+  border-right: 1.5px solid #e5e7eb !important;
+  border-radius: 0 !important;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1E6B3C;
+  background: #fff;
+  padding: 0 !important;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button { -webkit-appearance: none; }
+  -moz-appearance: textfield;
+  &:focus { border-color: #e5e7eb !important; outline: none; }
 }
 
 /* ── Erreur ── */
