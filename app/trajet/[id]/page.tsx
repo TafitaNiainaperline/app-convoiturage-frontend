@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
-  ArrowLeft, Calendar, Clock, Users, Banknote,
+  Calendar, Clock, Users,
   Phone, Car, Star, CheckCircle, AlertCircle,
 } from 'lucide-react';
 import { getTrajet, reserverTrajet } from '@/lib/api';
@@ -59,19 +59,15 @@ export default function DetailTrajetPage() {
 
   return (
     <div className={styles.page}>
-      <button onClick={() => router.back()} className={styles.retour}>
-        <ArrowLeft size={16} /> Retour
-      </button>
-
-      {/* Hero */}
+{/* Hero */}
       <div className={styles.hero}>
         <div className={styles.heroRoute}>
           <span className={styles.heroVille}>{trajet.depart.ville}</span>
           <span className={styles.heroFleche}>→</span>
           <span className={styles.heroVille}>{trajet.arrivee.ville}</span>
         </div>
-        <div className={styles.heroPrix}>{trajet.prixParPlace.toLocaleString()} Ar</div>
-        <div className={styles.heroPrixLabel}>par place</div>
+        <div className={styles.heroPrix}>{(nbPlaces * trajet.prixParPlace).toLocaleString()} Ar</div>
+        <div className={styles.heroPrixLabel}>{nbPlaces > 1 ? `${nbPlaces} places` : 'par place'}</div>
         <div className={styles.heroMeta}>
           <span className={styles.heroMetaItem}><Calendar size={14} />{new Date(trajet.dateDepart).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
           <span className={styles.heroMetaItem}><Clock size={14} />{trajet.heureDepart}</span>
@@ -111,14 +107,6 @@ export default function DetailTrajetPage() {
               </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Description */}
-      {trajet.description && (
-        <div className={styles.section}>
-          <p className={styles.sectionTitre}>Note du conducteur</p>
-          <p className={styles.description}>{trajet.description}</p>
         </div>
       )}
 
