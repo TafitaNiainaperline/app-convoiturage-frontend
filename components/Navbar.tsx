@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { Car, Plus, BookOpen, LogIn, UserPlus, LayoutList, User, LogOut, ChevronDown, Bell } from 'lucide-react';
+import { Car, Plus, BookOpen, LayoutList, User, LogOut, ChevronDown, Bell } from 'lucide-react';
 import { useAuth } from '@/lib/AuthContext';
 import { getNotifications } from '@/lib/api';
 import styles from './Navbar.module.scss';
@@ -22,10 +22,9 @@ export default function Navbar() {
   const [nbNonLues, setNbNonLues] = useState(0);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const peutPublier = user?.role === 'conducteur';
+  const peutPublier = user?.role === 'conducteur' || user?.role === 'les_deux';
   const isActive = (path: string) => pathname === path;
 
-  // Fermer le menu si clic en dehors
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -36,10 +35,8 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  // Fermer le menu à chaque changement de page
   useEffect(() => { setMenuOuvert(false); }, [pathname]);
 
-  // Charger le nombre de notifications non lues
   useEffect(() => {
     if (!user) return;
     const charger = () => {
@@ -62,34 +59,55 @@ export default function Navbar() {
 
   return (
     <nav className={styles.nav}>
+      {/* Logo */}
       <Link href="/" className={styles.logo}>
-        <Car size={22} />
-        <span>Covoiturage Mada</span>
+        <span className={styles.logoIcon}>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* MapPin */}
+            <path
+              d="M12 2C8.686 2 6 4.686 6 8c0 4.5 6 12 6 12s6-7.5 6-12c0-3.314-2.686-6-6-6z"
+              fill="rgba(255,255,255,0.2)"
+              stroke="white"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+            {/* Mini voiture inside the pin */}
+            <path
+              d="M9.5 8.8 L10.1 7.4 L13.9 7.4 L14.5 8.8 Z"
+              fill="white"
+            />
+            <rect x="9.2" y="8.8" width="5.6" height="2.4" rx="0.6" fill="white" />
+            <circle cx="10.4" cy="11.4" r="0.7" fill="rgba(255,255,255,0.3)" stroke="white" strokeWidth="0.5" />
+            <circle cx="13.6" cy="11.4" r="0.7" fill="rgba(255,255,255,0.3)" stroke="white" strokeWidth="0.5" />
+          </svg>
+        </span>
       </Link>
 
       <div className={styles.liens}>
         {user ? (
           <>
             <Link href="/" className={`${styles.lien} ${isActive('/') ? styles.actif : ''}`}>
-              <Car size={16} /> Trajets
+              <Car size={15} /> Trajets
             </Link>
 
             {peutPublier && (
               <>
                 <Link href="/conducteur" className={`${styles.lien} ${isActive('/conducteur') ? styles.actif : ''}`}>
-                  <LayoutList size={16} /> Mes trajets
+                  <LayoutList size={15} /> Mes trajets
                 </Link>
-                <Link href="/publier" className={`${styles.lien} ${isActive('/publier') ? styles.actif : ''}`}>
-                  <Plus size={16} /> Publier
+                <Link href="/publier" className={`${styles.lienPublier} ${isActive('/publier') ? styles.actif : ''}`}>
+                  <Plus size={15} /> Publier
                 </Link>
               </>
             )}
 
-            {user.role === 'passager' && (
+            {(user.role === 'passager' || user.role === 'les_deux') && (
               <Link href="/reservations" className={`${styles.lien} ${isActive('/reservations') ? styles.actif : ''}`}>
-                <BookOpen size={16} /> Réservations
+                <BookOpen size={15} /> Réservations
               </Link>
             )}
+
+            <span className={styles.divider} />
 
             {/* Cloche notifications */}
             <Link href="/notifications" className={`${styles.cloche} ${isActive('/notifications') ? styles.actif : ''}`}>
@@ -108,7 +126,7 @@ export default function Navbar() {
                 <div className={styles.avatarInitiales}>
                   {user.prenom?.[0]}{user.nom?.[0]}
                 </div>
-                <ChevronDown size={14} className={`${styles.chevron} ${menuOuvert ? styles.chevronOuvert : ''}`} />
+                <ChevronDown size={13} className={`${styles.chevron} ${menuOuvert ? styles.chevronOuvert : ''}`} />
               </button>
 
               {menuOuvert && (
@@ -139,18 +157,9 @@ export default function Navbar() {
             </div>
           </>
         ) : (
-          <>
-            {pathname !== '/login' && (
-              <Link href="/login" className={styles.lien}>
-                <LogIn size={16} /> Se connecter
-              </Link>
-            )}
-            {pathname !== '/register' && (
-              <Link href="/register" className={styles.btnInscription}>
-                <UserPlus size={16} /> S'inscrire
-              </Link>
-            )}
-          </>
+          <Link href="/login" className={styles.btnInscription}>
+            <User size={15} /> Connexion
+          </Link>
         )}
       </div>
     </nav>
