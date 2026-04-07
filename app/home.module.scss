@@ -4,20 +4,68 @@
 
 // ── Hero ──────────────────────────────────────────
 .hero {
-  background: linear-gradient(160deg, #134e2a 0%, #1e6b3c 50%, #27924f 100%);
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(255,255,255,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 90% 80%, rgba(0,0,0,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 50% -10%, rgba(39,146,79,0.6) 0%, transparent 70%),
+    linear-gradient(155deg, #0d3d1f 0%, #1a5c35 35%, #1e6b3c 60%, #237a44 100%);
   padding: 72px 24px 100px;
   position: relative;
   overflow: hidden;
 
+  // Blob décoratif haut-droite
+  &::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  // Vague bas
   &::after {
     content: '';
     position: absolute;
     bottom: -2px;
     left: 0;
     right: 0;
-    height: 48px;
+    height: 56px;
     background: #f4f5f7;
     clip-path: ellipse(55% 100% at 50% 100%);
+  }
+}
+
+// Cercles décoratifs en SVG inline via background
+.heroDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 30px;
+    left: -60px;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: 15%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.06);
   }
 }
 
@@ -124,7 +172,7 @@
 
 // ── Results ───────────────────────────────────────
 .results {
-  background: #f4f5f7;
+  background: transparent;
   min-height: 60vh;
   padding: 32px 24px 60px;
   max-width: 1100px;
@@ -240,6 +288,20 @@
       color: #9ca3af;
     }
   }
+}
+
+.badgeRez {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #f0fdf4;
+  color: #1E6B3C;
+  border: 1px solid #bbf7d0;
 }
 
 // Card right
