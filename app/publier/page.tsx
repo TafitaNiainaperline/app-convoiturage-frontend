@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { MapPin, Flag, Calendar, Clock, Users, Banknote, FileText, AlertCircle, Send } from 'lucide-react';
+import { MapPin, Flag, Calendar, Clock, Users, Banknote, AlertCircle, Send } from 'lucide-react';
 import { creerTrajet } from '@/lib/api';
 import { useAuth } from '@/lib/AuthContext';
 import styles from './publier.module.scss';
@@ -113,13 +113,23 @@ export default function PublierPage() {
 
           <div className={styles.champ}>
             <label><Users size={13} style={{display:'inline',verticalAlign:'middle',marginRight:5}} />Nombre de places disponibles</label>
-            <div className={styles.placesRow}>
-              {['1', '2', '3', '4', '5'].map(n => (
-                <button key={n} type="button"
-                  className={`${styles.placeBtn} ${form.placesDisponibles === n ? styles.actif : ''}`}
-                  onClick={() => update('placesDisponibles', n)}>{n}
-                </button>
-              ))}
+            <div className={styles.placesCounter}>
+              <button type="button" className={styles.placesBtn}
+                onClick={() => update('placesDisponibles', String(Math.max(1, parseInt(form.placesDisponibles) - 1)))}
+                disabled={parseInt(form.placesDisponibles) <= 1}>−</button>
+              <input
+                type="number"
+                className={styles.placesInput}
+                value={form.placesDisponibles}
+                min="1" max="100"
+                onChange={e => {
+                  const v = Math.min(100, Math.max(1, parseInt(e.target.value) || 1));
+                  update('placesDisponibles', String(v));
+                }}
+              />
+              <button type="button" className={styles.placesBtn}
+                onClick={() => update('placesDisponibles', String(Math.min(100, parseInt(form.placesDisponibles) + 1)))}
+                disabled={parseInt(form.placesDisponibles) >= 100}>+</button>
             </div>
           </div>
 
@@ -136,18 +146,6 @@ export default function PublierPage() {
           </div>
         </div>
 
-        {/* Description */}
-        <div className={styles.section}>
-          <p className={styles.sectionTitre}><FileText size={13} style={{display:'inline',verticalAlign:'middle',marginRight:6}} />Description (optionnel)</p>
-          <div className={styles.champ}>
-            <textarea
-              value={form.description}
-              onChange={e => update('description', e.target.value)}
-              placeholder="Point de rendez-vous, bagages autorisés, infos utiles pour les passagers..."
-              rows={3}
-            />
-          </div>
-        </div>
 
         <button type="submit" className={styles.bouton} disabled={chargement}>
           <Send size={16} />
